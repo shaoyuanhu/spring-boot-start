@@ -1,0 +1,8 @@
+server:
+  port: 80
+  #context-path: /springboot
+
+girl:
+  cupSize: F
+  age: 25
+#content: "cupSize: ${cupSize}, age: ${age}"
