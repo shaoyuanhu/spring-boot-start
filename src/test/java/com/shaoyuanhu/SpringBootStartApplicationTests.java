@@ -33,8 +33,15 @@ public class SpringBootStartApplicationTests {
 	@Test
 	public void run(){
 		try {
+			//三种获取Class对象的方式
+			//1.调用静态属性class获取对象，只需要具体的类
+			Class<GirlProperties> c2 = GirlProperties.class;
+			//2.调用getClass方法获取对象，需要具体的类和该类的对象
+			Class<? extends GirlProperties> c3 = girlProperties.getClass();
+			//3.通过Class.forName()方法获取对象，仅需要使用类名
 			String className = "com.shaoyuanhu.GirlProperties";
 			Class c = Class.forName(className);
+
 			System.out.println("--------------------------");
 			Field[] fields = c.getDeclaredFields();
 			for (Field field : fields) {
@@ -48,9 +55,16 @@ public class SpringBootStartApplicationTests {
 			System.out.println("--------------------------");
 			Method[] methods = c.getDeclaredMethods();
 			for (Method method : methods) {
-				System.out.println(method);
+				if (method.getName().equals("getCupSize")){
+					GirlProperties girlProperties = (GirlProperties) c.newInstance();
+					String cupSize = (String) method.invoke(girlProperties, null);
+					System.out.println(cupSize);
+				}
+				System.out.println(method.getName());
 			}
 			System.out.println("--------------------------");
+
+
 		}catch (Exception e){
 			e.printStackTrace();
 		}
