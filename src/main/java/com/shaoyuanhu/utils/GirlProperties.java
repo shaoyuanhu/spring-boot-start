@@ -1,4 +1,4 @@
-package com.shaoyuanhu;
+package com.shaoyuanhu.utils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

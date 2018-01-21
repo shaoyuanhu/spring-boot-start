@@ -1,14 +1,19 @@
 spring:
   profiles:
     active: dev
-#  datasource:
-#    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://127.0.0.1:3306/dbgirl
-#    username: root
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dbgirl
+    username: root
+    password: 123
 #    password: root
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#    show-sql: true
-
-
+  jpa:
+    hibernate:
+      #ddl-auto取值：
+      #create：运行时自动创建表，如果已存在该表，先删除，再创建
+      #update：没有表就创建表，有就直接使用
+      #create-drop：应用启动时创建表，停止时删除表
+      #none：什么也不做
+      #validate：会验证类属性和表结构是否一致，如果不一致，会报错
+      ddl-auto: none
+    show-sql: true #运行时显示sql语句

@@ -1,5 +1,6 @@
 package com.shaoyuanhu;
 
+import com.shaoyuanhu.utils.GirlProperties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
