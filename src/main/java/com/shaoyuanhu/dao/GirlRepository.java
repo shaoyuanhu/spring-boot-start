@@ -1,6 +1,6 @@
 package com.shaoyuanhu.dao;
 
-import com.shaoyuanhu.pojo.Girl;
+import com.shaoyuanhu.domain.Girl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

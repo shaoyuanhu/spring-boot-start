@@ -1,6 +1,6 @@
 package com.shaoyuanhu;
 
-import com.shaoyuanhu.utils.GirlProperties;
+import com.shaoyuanhu.properties.GirlProperties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +40,7 @@ public class SpringBootStartApplicationTests {
 			//2.调用getClass方法获取对象，需要具体的类和该类的对象
 			Class<? extends GirlProperties> c3 = girlProperties.getClass();
 			//3.通过Class.forName()方法获取对象，仅需要使用类名
-			String className = "com.shaoyuanhu.GirlProperties";
+			String className = "com.shaoyuanhu.properties.GirlProperties";
 			Class c = Class.forName(className);
 
 			System.out.println("--------------------------");

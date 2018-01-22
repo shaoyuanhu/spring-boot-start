@@ -1,16 +1,23 @@
 package com.shaoyuanhu.controller;
 
-import com.shaoyuanhu.pojo.Girl;
+import com.shaoyuanhu.domain.Girl;
 import com.shaoyuanhu.dao.GirlRepository;
+import com.shaoyuanhu.domain.Result;
 import com.shaoyuanhu.service.GirlService;
+import com.shaoyuanhu.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,6 +27,7 @@ import java.util.List;
  */
 @RestController
 public class GirlController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GirlController.class);
 
     @Autowired
     private GirlRepository girlRepository;
@@ -33,22 +41,28 @@ public class GirlController {
      */
     @RequestMapping(value = "/getGirls")
     public List<Girl> getGirls(){
+        LOGGER.info("this is getGirls method");
+//        System.out.println("this is getGirls method");
         return girlRepository.findAll();
     }
 
     /**
-     * 添加一个女生对象数据
-     * @param cupSize
-     * @param age
+     * 添加一个女生信息
+     * @Valid 制定校验的对象参数
+     * BindingResult：校验的结果
+     * @param girl
      * @return
      */
     @RequestMapping(value = "/addGirl")
-    public Girl addGirl(String cupSize, Integer age){
-        Girl girl = new Girl();
-        girl.setCupSize(cupSize);
-        girl.setAge(age);
+    public Result<Girl> addGirl(@Valid Girl girl, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            //获取错误提示信息
+            String message = bindingResult.getFieldError().getDefaultMessage();
+//            System.out.println(message);
+            return ResultUtil.error(1,message);
+        }
         Girl save = girlRepository.save(girl);
-        return save;
+        return ResultUtil.success(save);
     }
 
     /**
@@ -148,6 +162,11 @@ public class GirlController {
     @RequestMapping("/addTwoGirl")
     public void addTwoGirl(){
         girlService.addTwoGirl();
+    }
+
+    @GetMapping("/getAge/{id}")
+    public void getAge(@PathVariable("id") Long id) throws Exception {
+        girlService.getAge(id);
     }
 
 }
